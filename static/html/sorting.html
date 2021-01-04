@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/css/toggle.css">
+        <link rel="stylesheet" href="/static/css/navbar.css">
+        <script src="/static/js/timofunc.js"></script>
+    </head>
+    <body>
+        <ul>
+            <li><a href="/static/html/sorting.html">SortSim</a></li>
+            <li><a href="/static/html/config.html">Config</a></li>
+            <li><a href="/static/html/advanced.html">Advanced</a></li>
+        </ul>
+        <br>
+        <img src="/static/img/pv-logo-original.png" id="heartbeat" alt="" width="150">
+
+        <!-- Rounded switch -->
+        <br>
+        <script>
+            var img_id = document.getElementById('heartbeat');
+        </script>
+
+        <label class="switch">
+            <input type="checkbox" onclick="sorting(img_id)">
+            <span class="slider round"></span>
+        </label>
+
+    </body>
+</html>
