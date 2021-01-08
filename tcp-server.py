@@ -3,14 +3,14 @@ import asyncio
 async def handle_echo(reader, writer):
     while True:
         data = await reader.read(100)
-        message = data.decode()
+        message = data
         addr = writer.get_extra_info('peername')
 
         print(f"Received {message!r} from {addr!r}")
 
-        print(f"Send: {message!r}")
-        writer.write(data)
-        await writer.drain()
+        # print(f"Send: {message!r}")
+        # writer.write(data)
+        # await writer.drain()
 
     print("Close the connection")
     writer.close()

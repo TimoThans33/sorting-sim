@@ -30,10 +30,9 @@ def compose_msg(scanner_id=1, direction_range=[1,24], barcode = 4206005698049202
     eos = 'Z\x03'
     return (station_id +","+ scanner_id +","+ zf_dir +","+ barcode +","+ direc +","+ date_str + "T" + time_str + eos)
 
-
 async def send_period_message(loop, ip = '192.168.8.2'):
     barcode_init = 4206005698049202090135079104324001
-    reader, writer = await asyncio.open_connection(ip, 8888, loop=loop)
+    reader, writer = await asyncio.open_connection(ip, 2001, loop=loop)
     while True:
         barcode_init = barcode_init + 1
         message = compose_msg(barcode = barcode_init)
@@ -45,23 +44,15 @@ async def send_period_message(loop, ip = '192.168.8.2'):
         data = await reader.read(100)
         if (data.decode()==''):
                 writer.close()
-                reader, writer = await asyncio.open_connection(ip, 8888, loop=loop)
+                reader, writer = await asyncio.open_connection(ip, 2001, loop=loop)
         print('Received:' + data.decode())
         time.sleep(2)
     print('Close the socket')
     
  
 if __name__ == "__main__":
-    ip = '127.0.0.1' #sys.argv[1]
+    ip = '127.0.0.2' #sys.argv[1]
     time.sleep(5)
     loop = asyncio.get_event_loop()
     result = loop.run_until_complete(send_period_message(loop, ip))
-
-
-
-
-
-
-
-
 

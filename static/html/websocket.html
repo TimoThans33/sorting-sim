@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocket demo</title>
+    </head>
+    <body>
+        <script>
+            var ws = new WebSocket('ws://localhost:8000/feed');
+            data = 'bye!';
+        </script>
+        <button type="button" onclick = ws.send(data);>Click Me!</button>
+    </body>
+</html>

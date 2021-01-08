@@ -21,11 +21,66 @@
         <script>
             var img_id = document.getElementById('heartbeat');
         </script>
-
+        <p>
         <label class="switch">
-            <input type="checkbox" onclick="sorting(img_id)">
-            <span class="slider round"></span>
+            <input type="checkbox"></input>
+            <span id = "switch" class="slider round"></span>
         </label>
+        <script>
+            var ws = 0;
+            document.getElementById("switch").onclick = function() {
+                if (ws == 0) {
+                    ws = new WebSocket('ws://192.168.8.231:6543/feed');
+                }
+                if (ws.readyState == WebSocket.OPEN) {
+                    ws.close();
+                    ws = 0;
+                }
+            };
+        </script>
+        </p>
+        <p>
+        <input type="number" id="low" value="1">
+        <input type="number" id="high" value="24">
+        <button id="send">send</button>
+        <script>
+            var data;
+            document.getElementById("send").onclick = function() {
+                data = {
+                    "name" : [document.getElementById("low").value, document.getElementById("high").value]
+                };
+                // data = JSON.stringify([document.getElementById("low").value, document.getElementById("high").value]);
+                ws.send(JSON.stringify(data));
+                ws.send(JSON.stringify(data));
+            };
+        </script>
+        <button id="automate">automate</button>
+        <script>
+            var myVar;
 
+            document.getElementById("automate").onclick = function() {
+                myVar = setInterval(myFunc, 1000 );
+            };
+
+            function myFunc() {
+                document.getElementById("send").click();
+                // alert("new directory");
+            }
+        </script>
+        </p>
+        <p>
+            <input id="barcode" value="Some barcode: ">
+        </p>
+        <script>
+            var input = document.getElementById('barcode');
+            input.addEventListener("keyup",
+            function(event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    document.getElementById("send").click();
+                    document.getElementById("barcode").value = "Some barcode: ";
+                }
+            });
+        </script>
     </body>
 </html>

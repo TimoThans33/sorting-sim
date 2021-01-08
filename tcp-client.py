@@ -41,7 +41,7 @@ async def tcp_echo_client(loop, ip = '192.168.8.2'):
 
 
 if __name__ == "__main__":
-    ip = '127.0.0.1'
+    ip = '192.168.8.2'
     # time.sleep(5)
     loop = asyncio.get_event_loop()
     result = loop.run_until_complete(tcp_echo_client(loop, ip))
