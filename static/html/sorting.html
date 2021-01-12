@@ -30,7 +30,7 @@
             var ws = 0;
             document.getElementById("switch").onclick = function() {
                 if (ws == 0) {
-                    ws = new WebSocket('ws://192.168.8.231:6543/feed');
+                    ws = new WebSocket('ws://localhost:6543/feed');
                 }
                 if (ws.readyState == WebSocket.OPEN) {
                     ws.close();
@@ -81,6 +81,18 @@
                     document.getElementById("barcode").value = "Some barcode: ";
                 }
             });
+        </script>
+        <p>
+            <button id="testing">testing</button> 
+        </p>
+        <script>
+            var data;
+            document.getElementById("testing").onclick = function() {
+                data = {
+                    "name" : [0, 0]
+                };
+                ws.send(JSON.stringify(data));
+            };
         </script>
     </body>
 </html>

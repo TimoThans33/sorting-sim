@@ -1,18 +1,29 @@
-import socket
-import time
-HOST = '127.0.0.1'
-PORT = 8888
+import asyncio
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(4096)
-            if data:
-                print(data)
-            time.sleep(0.5)
-            conn.sendall(b"ok")
+async def handle_echo(reader, writer):
+    while True:
+        data = await reader.read(100)
+        message = data.decode()
+        addr = writer.get_extra_info('peername')
 
+        print(f"Received {message!r} from {addr!r}")
+
+        print(f"Send: accepted")
+
+        writer.write(data)
+        await writer.drain()
+
+    # print("Close the connection")
+    # writer.close()
+
+async def main():
+    server = await asyncio.start_server(
+        handle_echo, '127.0.0.1', 8888)
+
+    addr = server.sockets[0].getsockname()
+    print(f'Serving on {addr}')
+
+    async with server:
+        await server.serve_forever()
+
+asyncio.run(main())

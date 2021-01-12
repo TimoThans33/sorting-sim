@@ -13,11 +13,11 @@ import random
 import datetime
 from datetime import date, datetime
 
-# HOST = '127.0.0.1'
-# PORT = 8888
+HOST = '127.0.0.1'
+PORT = 8888
 
-HOST = '192.168.8.2'
-PORT = 2001
+#HOST = '192.168.8.2'
+#PORT = 2001
 
 # get environment variables for configuration
 static_files_dir = os.getenv('STATIC_FILES_DIR', os.path.join(os.path.dirname(os.path.realpath(__file__)), "static"))
@@ -48,6 +48,63 @@ def compose_msg(scanner_id=1, direction_range=[1,24], barcode = 4206005698049202
     eos = 'Z\x03'
     return (station_id +","+ scanner_id +","+ zf_dir +","+ barcode +","+ direc +","+ date_str + "T" + time_str + eos)
 
+test_array = ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1"
+            ,"2","2","2","2","2","2","2","2","2","2"
+            ,"3","3","3","3","3","3","3","3","3","3"
+            ,"4","4","4","4","4","4","4","4","4","4"
+            ,"5","5","5","5","5","5","5","5","5","5"
+            ,"6","6","6","6","6","6","6","6","6","6"
+            ,"7","7","7","7","7","7","7","7","7","7"
+            ,"8","8","8","8","8","8","8","8","8","8"
+            ,"9","9","9","9","9","9","9","9","9","9"
+            ,"10","10","10","10","10","10","10","10","10","10"
+            ,"10"
+            ,"9"
+            ,"8"
+            ,"7"
+            ,"6"
+            ,"5"
+            ,"4"
+            ,"3"
+            ,"2"
+            ,"1"
+            ,"1"
+            ,"6"
+            ,"2"
+            ,"7"
+            ,"3"
+            ,"8"
+            ,"4"
+            ,"9"
+            ,"5"
+            ,"10"
+]
+
+def testing_func(scanner_id=1, barcode = 4206005698049202090135079104324001, socket=socket):
+    for i in test_array:
+        direc = i
+        zf_dir = i.zfill(3)
+        station_id = '\x02MSA-12345-001'
+        scanner_id = str(scanner_id) 
+        barcode = str(barcode)
+        date_str = date.today().strftime("%Y-%m-%d")
+        time_str = datetime.now().strftime("%H:%M:%S")
+        eos = 'Z\x03'
+        message = station_id +","+ scanner_id +","+ zf_dir +","+ barcode +","+ direc +","+ date_str + "T" + time_str + eos
+        print(message)
+        socket.sendall(bytes(message, 'utf-8'))
+        read = socket.recv(1024)
+        print(read)
+        if read == b"":
+            print("no message")
+        socket.sendall(bytes(message, 'utf-8'))
+        read = socket.recv(1024)
+        print(read)
+        if read == b"":
+            print("no message")
+        time.sleep(0.1)
+
+
 @app.route('/')
 async def index(request):
     return response.html( env.get_template("/html/sorting.html").render())
@@ -76,6 +133,9 @@ async def feed(request, ws):
                 data = await ws.recv()
                 data = json.loads(data)
                 barcode_init = barcode_init + 1
+                if data["name"][0] == 0:
+                    print("start test")
+                    testing_func(socket = s)
                 message = compose_msg(barcode = barcode_init, direction_range=[int(data["name"][0]),int(data["name"][1])])
                 print("send : ",message)
                 s.sendall(bytes(message, 'utf-8'))
@@ -93,10 +153,14 @@ async def feed(request, ws):
 if __name__ == "__main__":
     # ip = sys.argv[1]
     # port = sys.argv[2]
+    # host = '192.168.8.231'
+    # port = 6543
+    host = 'localhost'
+    port = 6543
     # print("test")
     # start_server = websockets.serve(websocket, ip, port)
     
     # asyncio.get_event_loop().run_until_complete(start_server)
     # asyncio.get_event_loop().run_forever()
     # print("test")
-    app.run(host='192.168.8.231', port=6543, debug = True)
+    app.run(host=host, port=port, debug = True)
