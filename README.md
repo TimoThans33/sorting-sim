@@ -23,3 +23,16 @@ To simulate the server side you can use the following:
 ```
 python3 echo-server.py
 ```
+## Install as systemd service
+Change the .env and .service files accordingly. Then copy the .service file to systemd folder.
+```
+cp cx-test-service.service /etc/systemd/system/
+```
+```
+sudo systemctl daemon-reload
+sudo systemctl start cx-test-service.service
+```
+To enable from boot.
+```
+sudo systemctl enable cx-test-service.service
+```
