@@ -10,3 +10,10 @@ websocket-client.py
 websocket-server.py
 websocket.html
 dynamic
+
+__pycache__
+testservice.egg-info
+debian
+deb_dist
+dist
+testservice-0.0.1.tar.gz

@@ -1,0 +1,15 @@
+[Unit]
+Description=cx-test-Service
+After=network.target
+After=network-online.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=timo
+WorkingDirectory=/home/timo/Projects/PrimeVision/cx/cx-test-service
+EnvironmentFile=/home/timo/Projects/PrimeVision/envs/cx-test-service/testservice.env
+ExecStart=/usr/bin/python3.8 -m testservice
+
+[Install]

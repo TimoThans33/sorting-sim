@@ -4,20 +4,17 @@ import sys
 import time
 from sanic import Sanic, response, Blueprint
 from jinja2 import Template, FileSystemLoader, Environment
-from initiate import my_bp
 from sanic.response import json, file
 import json
-import asyncio
 import socket
 import random
-import datetime
 from datetime import date, datetime
 
-HOST = '127.0.0.1'
-PORT = 8888
+# HOST = '127.0.0.1'
+# PORT = 8888
 
-#HOST = '192.168.8.2'
-#PORT = 2001
+host = '0.0.0.0'
+port = 2001
 
 # get environment variables for configuration
 static_files_dir = os.getenv('STATIC_FILES_DIR', os.path.join(os.path.dirname(os.path.realpath(__file__)), "static"))
@@ -128,7 +125,7 @@ async def feed(request, ws):
     # reader, writer = await asyncio.open_connection(ip, port)
     while True:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((HOST, PORT))
+            s.connect((host, port))
             while True:
                 data = await ws.recv()
                 data = json.loads(data)
@@ -149,18 +146,3 @@ async def feed(request, ws):
         # print(data)
         # data = json.loads(data)
         # print(data["name"][0])
-
-if __name__ == "__main__":
-    # ip = sys.argv[1]
-    # port = sys.argv[2]
-    # host = '192.168.8.231'
-    # port = 6543
-    host = 'localhost'
-    port = 6543
-    # print("test")
-    # start_server = websockets.serve(websocket, ip, port)
-    
-    # asyncio.get_event_loop().run_until_complete(start_server)
-    # asyncio.get_event_loop().run_forever()
-    # print("test")
-    app.run(host=host, port=port, debug = True)
