@@ -1,3 +1,17 @@
+var ws = 0;
+
+function wsConnect() {
+    document.getElementById("switch").onclick = function() {
+        if (ws==0) {
+            ws = new WebSocket('ws://localhost:6543/feed');
+        }
+        if (ws.readyState == WebSocket.OPEN) {
+            ws.close();
+            ws = 0;
+        }
+    }
+}
+
 function dropHandler(ev) {
     console.log('File(s) dropped');
 
@@ -36,8 +50,8 @@ function dropHandler(ev) {
                                         function loopfunc() {
                                             data = {"name" : [json.tests[key].direction[count].container, json.tests[key].direction[count].container]};
                                             // alert(json.tests[key].direction[dir].container);
-                                            // ws.send(JSON.stringify(data));
-                                            // ws.send(JSON.stringify(data));
+                                            ws.send(JSON.stringify(data));
+                                            ws.send(JSON.stringify(data));
                                             string.innerHTML = "container : " + json.tests[key].direction[count].container + " #" + time + " " + dir;
                                             document.body.appendChild(string);
                                             time += 1;

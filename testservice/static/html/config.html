@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/static/css/dropzone.css">
         <link rel="stylesheet" href="/static/css/navbar.css">
         <link rel="stylesheet" href="/static/css/descriptions.css">
+        <link rel="stylesheet" href="/static/css/toggle.css">
         <script src="/static/js/config.js"></script>
     </head>
     <body>
@@ -17,6 +18,13 @@
         <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" onmouseover="">
             <p>Drag JSON files here</p>
         </div>
+                <label class="switch">
+            <input type="checkbox"></input>
+            <span id = "switch" class="slider round"></span>
+        </label>
+        <script>
+            wsConnect();
+        </script>
         <div id="descriptions"></div>
     </body>
 </html>
