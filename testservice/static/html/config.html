@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/css/toggle.css">
+        <link rel="stylesheet" href="/static/css/dropzone.css">
         <link rel="stylesheet" href="/static/css/navbar.css">
-        <script src="/static/js/timofunc.js"></script>
+        <link rel="stylesheet" href="/static/css/descriptions.css">
+        <script src="/static/js/config.js"></script>
     </head>
     <body>
         <ul>
@@ -13,5 +14,9 @@
             <li><a href="/static/html/config.html">Config</a></li>
             <li><a href="/static/html/advanced.html">Advanced</a></li>
         </ul>
+        <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" onmouseover="">
+            <p>Drag JSON files here</p>
+        </div>
+        <div id="descriptions"></div>
     </body>
 </html>

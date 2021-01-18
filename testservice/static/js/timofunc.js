@@ -57,13 +57,3 @@ function compose_msg(scanner_id=1, min=1, max=24, barcode = 42060056980492020901
     eos = 'Z\x03'
     return (station_id +","+ scanner_id +","+ zf_dir +","+ barcode +","+ direc +","+ date_str + "T" + time_str + eos)
 }
-
-function create_websocket(ip, port, sub) {
-    //var ws = new WebSocket('ws://' + ip + ':' + port + '/' + sub);
-    // var ws = new WebSocket('ws://localhost:8000/feed')
-}
-
-function main(img) {
-    img.style.transform = 'rotate(180deg)'
-
-}

@@ -1,0 +1,64 @@
+{
+    "tests": [
+        {
+            "testid": "1",
+            "date": "Jan 18, 2021",
+            "totaltime": "270s",
+            "description": "go to every direction for 90s",
+            "direction": [
+                {
+                    "container":"1",
+                    "time": "90"
+                },
+                {
+                    "container":"2",
+                    "time": "90"
+                },
+                {
+                    "container":"3",
+                    "time":"90"
+                }
+            ]
+        },
+        {
+            "testid":"2",
+            "date": "Jan 18, 2021",
+            "totaltime": "90s",
+            "description": "go te every direction once for 30s from high to low",
+            "direction": [
+                {
+                    "container":"3",
+                    "time": "30"
+                },
+                {
+                    "container":"2",
+                    "time": "30"
+                },
+                {
+                    "container":"1",
+                    "time":"30"
+                }
+            ]
+        },
+        {
+            "testid":"3",
+            "date": "Jan 18, 2021",
+            "totaltime": "90s",
+            "description": "go to every direction once for 30s from high to low in collumns",
+            "direction": [
+                {
+                    "container":"1",
+                    "time": "30"
+                },
+                {
+                    "container":"2",
+                    "time": "30"
+                },
+                {
+                    "container":"3",
+                    "time":"30"
+                }
+            ]
+        }
+    ]
+}
